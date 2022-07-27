@@ -1,0 +1,55 @@
+{% extends 'user/layout1.html'%}
+{% block title%} {{session['user']}} {% endblock %}
+
+{% block statement %}
+    
+    <p class="display-4 color1">Welcome, {{guestdeets.guest_fname}} </p>
+    
+    <p class="lead color2">
+        We would like to hear from you. Please fill the form let us know your thoughts..
+    </p>
+    {% set msg = get_flashed_messages(with_categories=True)%}
+    {% if msg %}
+    {% for i in msg %}
+    {% if i[0] == 'error'%}
+    <p class="alert alert-danger">{{i[1]}}</p>
+    {% else %}
+    <p class="alert alert-success">{{i[1]}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    <div class="bg-dark col-7 p-3">
+        <a href="/user/edit" class="btn-link lead color1 d-block mb-3 px-3">Edit profile</a>
+        <a href="/user/Upload" class="btn-link lead color1 d-block mb-3 px-3">Upload Picture</a>
+        <a href="/registry" class="btn-link lead color1 d-block mb-3 px-3">View gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Change your gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Check Available Hotels</a>
+        <a href="/accommodation" class="btn-link lead color1 d-block mb-3 px-3">Accommodation</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Send Enquiries</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Buy Aso Ebi</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">See other Announcements</a>  
+    </div>
+    <div class="d-flex btn-group">
+        <a href="/logout" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Log out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+
+{% if guestdeets.guest_image != '' %}
+<img src="{{url_for('static', filename='uploads/'+guestdeets.guest_image)}}" alt="" height="200">
+{% else %}
+<a href="/user/upload">Click here to upload picture</a>
+{% endif %}
+
+<div>
+    <p class="lead">You have selected</p>
+    <form action="">
+        {% for i in selected %}
+        <div>
+            {{i.gift_id}} {{i.gift_name}}
+        </div>
+        {% endfor %}
+    </form>
+</div>
+{% endblock%}

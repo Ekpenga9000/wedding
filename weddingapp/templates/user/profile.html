@@ -1,0 +1,106 @@
+{% extends 'user/layout1.html'%}
+{% block title%} {{session['user']}} {% endblock %}
+
+{% block statement %}
+    
+    <p class="display-4 color1">Welcome, {{guestdeets.guest_fname}} </p>
+    
+    <p class="lead color2">
+        We would like to hear from you. Please fill the form let us know your thoughts..
+    </p>
+    {% set msg = get_flashed_messages(with_categories=True)%}
+    {% if msg %}
+    {% for i in msg %}
+    {% if i[0] == 'error'%}
+    <p class="alert alert-danger">{{i[1]}}</p>
+    {% else %}
+    <p class="alert alert-success">{{i[1]}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    <div class="bg-dark col-7 p-3">
+        <a href="/user/edit" class="btn-link lead color1 d-block mb-3 px-3">Edit profile</a>
+        <a href="/user/Upload" class="btn-link lead color1 d-block mb-3 px-3">Upload Picture</a>
+        <a href="/registry" class="btn-link lead color1 d-block mb-3 px-3">View gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Change your gift</a>
+        <a href="/accommodation" class="btn-link lead color1 d-block mb-3 px-3">Check Available Hotels</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Send Enquiries</a>
+        <a href="/asoebi" class="btn-link lead color1 d-block mb-3 px-3">Buy Aso Ebi</a>
+        <a href="/ajax_demo" class="btn-link lead color1 d-block mb-3 px-3">Ajax Demo</a>  
+    </div>
+    <div class="d-flex btn-group">
+        <a href="/logout" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Log out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+
+{% if guestdeets.guest_image != '' %}
+<img src="{{url_for('static', filename='uploads/'+guestdeets.guest_image)}}" alt="" height="200">
+{% else %}
+<a href="/user/upload">Click here to upload picture</a>
+{% endif %}
+
+<div>
+    <form action="">
+        {% for i in gift %}
+        <div>
+            <input type="checkbox" class="form-checked" name="{{i.gift_name}}" id="{{i.gift_id}}" value="{{i.gift_name}}">
+            <label for="{{i.gift_id}}">{{i.gift_name}}</label>
+        </div>
+        {% endfor %}
+    </form>
+</div>
+
+<form id="paymentForm">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email-address" required />
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="tel" id="amount" required />
+    </div>
+    <div class="form-group">
+      <label for="first-name">First Name</label>
+      <input type="text" id="first-name" />
+    </div>
+    <div class="form-group">
+      <label for="last-name">Last Name</label>
+      <input type="text" id="last-name" />
+    </div>
+    <div class="form-submit">
+      <button type="submit" onclick="payWithPaystack()"> Pay </button>
+    </div>
+  </form>
+  
+  <script src="https://js.paystack.co/v1/inline.js"></script> 
+{% endblock%}
+
+{% block custom_scripts %}
+<script type="text/javascript">
+    const paymentForm = document.getElementById('paymentForm');
+    paymentForm.addEventListener("submit", payWithPaystack, false);
+    function payWithPaystack(e) {
+    e.preventDefault();
+
+    let handler = PaystackPop.setup({
+        key: 'pk_test_b802a64a917517d06ef28895361aaff8c90c6ba4', // Replace with your public key
+        email: document.getElementById("email-address").value,
+        amount: document.getElementById("amount").value * 100,
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        // label: "Optional string that replaces customer email"
+        onClose: function(){
+        alert('Window closed.');
+        },
+        callback: function(response){
+        let message = 'Payment complete! Reference: ' + response.reference;
+        alert(message);
+        }
+    });
+
+    handler.openIframe();
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'user/layout1.html'%}
+{% block title%} Login {% endblock %}
+
+{% block statement%}
+    <h1 class="display-3 color1">Mary & John's</h1>
+    <h1 class="display-4 color2 mb-3">Wedding invitation</h1>                
+    <!-- <p class="lead color2">
+        We are delighted to announce that Mary & John are officially tying the knot!
+        Please login to see more details!
+    </p> -->
+    <h1 class="display-4 color1 my-3">Contact Us form</h1>
+{% endblock %}
+
+
+{% block form %}
+<div class="d-flex btn-group">
+    <a href="/signup" class="btn btn-lg color3 d-inline-block" style="border:2px solid #a8c868;">Signup</a>
+    <a href="/" class="btn btn-lg d-inline-block" style="background-color: #a8c868;color:#fff;">Home</a>
+</div>
+    <form action="/submitcontact" method="post">
+        {% if cform.fullname.errors %}
+        {% for i in cform.fullname.errors %}
+        <span class="text-danger">{{i}}</span>
+        {% endfor %}
+        {% endif %}
+        {{ cform.fullname(class_="form-control my-3 form-control-lg",style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;",placeholder="Username" )}}
+        
+        {% if cform.email.errors %}
+        {% for i in cform.email.errors %}
+        <span class="text-danger">{{i}}</span>
+        {% endfor %}
+        {% endif %}
+        {{cform.email(class="form-control mb-3 form-control-lg", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;", placeholder="Email Address")}}
+        
+
+        {{cform.message(class="form-control mb-3 form-control-lg", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;", placeholder="Enter Message")}}
+        
+        {{cform.submit(class="btn btn-lg form-control pb-2 color3 d-inline-block", style="border:2px solid #a8c868;")}}
+       
+        {{cform.csrf_token}}
+    </form>
+{% endblock %}

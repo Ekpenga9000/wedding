@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Wedding App|{% block title %}home{% endblock %}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static',filename='css/scrolling-nav.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class = "container-fluid bg-dark text-white vh100 homebg">
+        <div class="row vh100 overlay">
+            <div class="col d-flex mt-5 justify-content-center">
+                <div>
+                    <img src="{{url_for('static', filename='images/wedding4.png')}}" alt="john and Mary" class="img-fluid" style="border: 1px solid #BA68C8; border-radius: 10px;">
+                </div>
+                <div class="col-5 p-4 mt-5">
+                    <h1 class="display-3 color1">Mary & John's</h1>
+                    <h1 class="display-4 color2 mb-3">Wedding invitation</h1>
+                        
+                    <p class="lead color2" >
+                            
+                        We are delighted to announce that Mary & John are officially tying the knot!
+                        Please signup and login to see more details!
+                    </p>
+
+                    <div class="mb-3 d-flex justify-content-center btn-group">
+                        <a href="/login" class="btn btn-lg d-inline-block" style="background-color: #BA68C8; color: #fff;">Login</a>
+                        <a href="/signup" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Signup</a>
+                    </div> 
+                </div>    
+            </div>    
+        </div>
+        
+        
+    
+        <!-- Footer -->
+        <footer class="py-2 bg-dark">
+            <div class="container-fluid">
+            <p class="m-0 text-center text-white">Copyright &copy; Designed by Techgod</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+    </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{url_for('static',filename='vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{{url_for('static',filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+  <!-- Custom JavaScript for this theme -->
+  <script src="{{url_for('static',filename='js/scrolling-nav.js')}}"></script>
+
+</body>
+
+</html>

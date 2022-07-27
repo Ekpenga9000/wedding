@@ -1,0 +1,46 @@
+{% extends 'user/layout1.html' %}
+{% block title %}Signup{% endblock %}
+
+{% block form %}
+<div class="mb-3 d-flex justify-content-center btn-group">
+    <a href="/login" class="btn btn-lg d-inline-block" style="background-color: #a8c868;color:#fff;">Login</a>
+    <a href="/" class="btn btn-lg color3 d-inline-block" style="border:2px solid #a8c868;">Home</a>
+</div>
+
+<form action="/submitsignup" method="post">
+    <div class="form-floating my-3">
+        <input type="text" name="firstname" id="firstname" placeholder="First Name" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+    </div>
+    <div class="form-floating my-3">
+        <input type="text" name="lastname" id="lastname" placeholder="Last Name" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+    </div>
+    <div class="form-floating my-3">
+        <input type="email" name="email" id="email" placeholder="Email address" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+    </div>
+    <div class="form-floating my-3">
+        <input type="text" name="username" id="user" placeholder="Username" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+    </div>
+    <div class="form-floating my-3">
+        <input type="password" name="pswd1" id="pswd1" placeholder="Password" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+    </div>
+    <div class="form-floating my-3">
+        <input type="password" name="pswd2" id="pswd2" placeholder="Confirm password" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+    </div>
+    <div class="d-flex btn-group">
+        <button class="btn btn-lg color3 d-inline-block" style="border:2px solid #a8c868;">Submit</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block statement%}
+<h1 class="display-3 color1">Mary & John's</h1>
+<h1 class="display-4 color2 mb-3">Wedding invitation</h1>
+
+
+<p class="lead color2">
+    We are delighted to announce that Mary & John are officially tying the knot!
+    Please signup and login to see more details!
+</p>
+<h1 class="display-4 color1 my-3">Signup form</h1>
+{% endblock %}   
+

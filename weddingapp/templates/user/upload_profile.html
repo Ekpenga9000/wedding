@@ -1,0 +1,26 @@
+{% extends 'user/layout1.html'%}
+
+{% block statement %}
+<!-- {% for i in deets%} -->
+<p class="display-4 color1">Welcome, {{deets1}}</p>
+<!-- {%endfor%} -->
+<p class="lead color2">
+    Profile Update
+</p>
+    
+    {% include 'user/nav.html'%}
+{% endblock %}
+
+{% block form %}
+
+<form action="/user/submit_upload" method="post" enctype="multipart/form-data">
+    <div>
+        <input type="file" class = "form-control mb-3" name="profilepix" id="" >
+    </div>
+   
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+
+    <button class="btn btn-success">Submit</button>
+
+</form>
+{% endblock %}

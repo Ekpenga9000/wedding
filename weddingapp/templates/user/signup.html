@@ -1,0 +1,66 @@
+{% extends 'user/layout1.html' %}
+{% block title %}Signup{% endblock %}
+
+{% block form %}
+<div class="mb-3 d-flex justify-content-center btn-group">
+    <a href="/login" class="btn btn-lg d-inline-block" style="background-color: #a8c868;color:#fff;">Login</a>
+    <a href="/" class="btn btn-lg color3 d-inline-block" style="border:2px solid #a8c868;">Home</a>
+</div>
+
+<form action="/signup" method="post">
+
+    {% if sform.firstname.errors %}
+    {% for i in sform.firstname.errors %}
+    <span class="text-danger">{{i}}</span>
+    {% endfor %}
+    {% endif %}
+
+    {{ sform.firstname(class_="form-control my-3 form-control-lg", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;", placeholder="First Name")}} 
+
+
+    {% if sform.lastname.errors %}
+    {% for i in sform.lastname.errors %}
+    <span class="text-danger">{{i}}</span>
+    {% endfor %}
+    {% endif %}
+    {{ sform.lastname(class_="form-control mb-3 form-control-lg", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;", placeholder="Last Name")}} 
+    
+    {% if sform.email.errors %}
+    {% for i in sform.email.errors %}
+    <span class="text-danger">{{i}}</span>
+    {% endfor %}
+    {% endif %}
+    {{ sform.email(class_ ="form-control mb-3 form-control-lg", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;", placeholder="Email address")}}
+    
+    {% if sform.password.errors %}
+    {% for i in sform.password.errors %}
+    <span class="text-danger">{{i}}</span>
+    {% endfor %}
+    {% endif %}
+    {{sform.password(class_="form-control mb-3 form-control-lg", placeholder="Password", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;")}}
+    
+    {% if sform.cpassword.errors %}
+    {% for i in sform.cpassword.errors %}
+    <span class="text-danger">{{i}}</span>
+    {% endfor %}
+    {% endif %}
+    {{sform.cpassword(class_="form-control mb-3 form-control-lg", placeholder="Confirm Password", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;")}}
+
+    {{sform.submit(class_="btn btn-lg color3  d-inline-block form-control", style="border:2px solid #a8c868;")}}
+    
+    {{sform.csrf_token}}
+</form>
+{% endblock %}
+
+{% block statement%}
+<h1 class="display-3 color1">Mary & John's</h1>
+<h1 class="display-4 color2 mb-3">Wedding invitation</h1>
+
+
+<p class="lead color2">
+    We are delighted to announce that Mary & John are officially tying the knot!
+    Please signup and login to see more details!
+</p>
+<h1 class="display-4 color1 my-3">Signup form</h1>
+{% endblock %}   
+

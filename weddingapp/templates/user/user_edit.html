@@ -1,0 +1,34 @@
+{% extends 'user/layout1.html'%}
+
+{% block statement %}
+{% for i in deets%}
+<p class="display-4 color1">Welcome,{{i.guest_fname}} </p>
+{%endfor%}
+<p class="lead color2">
+    Profile Update
+</p>
+    
+    {% include 'user/nav.html'%}
+{% endblock %}
+
+{% block form %}
+
+{% for i in deets %}
+
+<form action="/user/update/profile" method="post">
+    <div>
+        <input type="text" class = "form-control mb-3" name="firstname" id="" placeholder="Enter First name" value="{{i.guest_fname}}" >
+    </div>
+
+    <div>
+        <input type="text" class = "form-control mb-3"  name="lastname" id="" placeholder="Enter Last name" value="{{i.guest_lname}}">
+    </div>
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+    <div>
+        <textarea name="address" class="form-control" id="" cols="30" rows="10">{{i.guest_address}}</textarea>
+    </div>
+
+    <button class="btn btn-success">Submit</button>
+{% endfor %}
+</form>
+{% endblock %}

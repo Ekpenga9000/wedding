@@ -1,0 +1,30 @@
+{% extends 'admin/admin_panel.html' %}
+{% block contents %}
+    <h2>MANAGE GUESTS</h2>
+    
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>FullName</th>
+                <th>Date registered</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in guest %}
+            
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{i.guest_fname}} {{i.guest_lname}}</td>
+                <td>{{i.guest_regdate.strftime('%d %B %Y')}} {{i.guest_regdate.strftime('%I:%M%p')}} </td>
+                <td><a href="{{url_for('edit', id = i.gift_id)}}">Edit</a></td>
+                <td><a href="/admin/delete/{{i.gift_id}}>" onclick="return confirm('Do you really want to delete this item?')">Delete</a></td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    
+{% endblock %}

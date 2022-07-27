@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<title></title>
+<meta charset= "UTF-8">
+<meta name= "viewport" content= "width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel= "stylesheet" type= "text/css" href= "{{url_for('static', filename='libraries/bootstrap/css/bootstrap.css')}}">
+<style type= "text/css">
+	div{ border: 0px solid red }
+	.main_col{ min-height: 93vh; }
+	.navig{ border-bottom: 1px solid blue }
+	#banner{ background-color: #04002C; color: #EEE}
+	#panel{ background-color: #05003D; color: #EEE}
+	#content{ background-color: #EDEBFF; }
+	.navig:hover{ background-color: #EDEBFF; }
+</style>
+{% block internal_styles %}
+{% endblock internal_styles %}
+</head>
+
+<body>
+<div class= "container-fluid">
+	<div class= "row"  id= "banner">
+		<div class= "col-3 col-2-xxl ps-xxl-4">
+			<h2 class= "">Wedding App</h2>
+		</div>
+		<div class= "col-9 col-10-xxl"></div>
+	</div>
+	<div class= "row">
+		<div class= "col-2 main_col" id= "panel">
+			<div class= "row" style= "border-top: 1px solid #EDEBFF">
+				<div class= "col py-2">
+					<h4 class= "text-center">Welcome Admin</h4>
+					<p class= "text-center"><b>{{ admin_name }}</b></p>
+				</div>
+			</div>
+
+			<div class= "row mt-3">
+				<div class= "col">
+					<ul class= "nav flex-column nav-fill">
+						<li class= "nav-item navig mb-1">
+							<a href="#" class= "nav-link text-warning">Sample  Link</a>
+						</li>
+						<li class= "nav-item navig mb-1 ">
+							<a href="#" class= "nav-link text-warning">Sample  Link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+
+		<div class= "col-10 main_col" id= "content">
+			<div class= "row">
+				<div class= "col">
+					{% block contents %}
+					{% endblock contents %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- JS Files -->
+<script type= "text/javascript" src= "{{url_for('static', filename='libraries/jquery.js')}}"></script>
+<script type= "text/javascript" src= "{{url_for('static', filename='libraries/bootstrap/js/bootstrap.bundle.js')}}"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Wedding App|{% block title %}Home{% endblock %}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static',filename='css/scrolling-nav.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Wedding</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Signup</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Hello Techgod,</a>
+              </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+
+    <div class = "container-fluid bg-dark text-white vh100 homebg">
+        <div class="row vh100 overlay">
+            <div class="col d-flex p-5">
+                <div class="col-5 p-4">
+                    {% block statement%}
+                    <h1 class="display-3 color1">Mary & John's</h1>
+                    <h1 class="display-4 color2 mb-3">Wedding invitation</h1>
+                    
+                    
+                    <p class="lead color2">
+                        We are delighted to announce that Mary & John are officially tying the knot!
+                        Please signup and login to see more details!
+                    </p>
+                    <h1 class="display-4 color1 my-3">Signup form</h1>
+                    {% endblock %}   
+                </div>
+                <div class="col-7 p-5">
+                    {% block form %}
+                     
+
+                 
+                    {% endblock %}
+                </div>
+            </div>    
+        </div>

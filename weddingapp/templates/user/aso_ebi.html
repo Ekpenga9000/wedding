@@ -1,0 +1,58 @@
+{% extends 'user/layout1.html'%}
+{% block title%}  {% endblock %}
+
+{% block statement %}
+   
+    <div class="bg-dark col-7 p-3">
+        <a href="/user/edit" class="btn-link lead color1 d-block mb-3 px-3">Edit profile</a>
+        <a href="/user/Upload" class="btn-link lead color1 d-block mb-3 px-3">Upload Picture</a>
+        <a href="/registry" class="btn-link lead color1 d-block mb-3 px-3">View gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Change your gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Check Available Hotels</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Send Enquiries</a>
+        <a href="/asoebi" class="btn-link lead color1 d-block mb-3 px-3">Buy Aso Ebi</a>
+        <a href="/ajax_demo" class="btn-link lead color1 d-block mb-3 px-3">Ajax Demo</a>  
+    </div>
+    <div class="d-flex btn-group">
+        <a href="/logout" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Log out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+
+
+
+<div class="mb-3">
+<form action="/asoebi" method="post">
+    <h3 class="display-6">Please select what you want to buy </h3>
+    {{loggedin}}
+    <table class="table table-strip">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Aso Ebi</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in uni %}
+            <tr>
+                <td>{{loop.index}}. <input type="checkbox" name="uniform" id="{{i.uni_id}}" value="{{i.uni_id}}"></td>
+                <td>{{i.uni_name}}</td>
+                <td>&#8358; {{"{:,.2f}".format(i.uni_price)}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+    <div class="d-flex btn-group">
+        <button class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Submit</button>
+    </div>
+</form>
+</div>
+
+
+
+{% endblock%}
+

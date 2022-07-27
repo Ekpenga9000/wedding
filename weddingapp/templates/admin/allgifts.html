@@ -1,0 +1,32 @@
+{% extends 'admin/admin_panel.html' %}
+{% block contents %}
+    <h2>MANAGE GIFTS</h2>
+    <div class="my-3">
+        <a href="{{url_for('add_gift')}}" class ="btn btn-success"> Add Gift</a>
+    </div>
+
+    {% set msg = get_flashed_messages()%}
+    {{msg[0]|safe}}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Gift Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in p %}
+            
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{i.gift_name}}</td>
+                <td><a href="{{url_for('edit', id = i.gift_id)}}" class="btn btn-primary">Edit</a></td>
+                <td><a href="/admin/delete/{{i.gift_id}}>"  class = "btn btn-danger" onclick="return confirm('Do you really want to delete this item?')">Delete</a></td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+{% endblock %}

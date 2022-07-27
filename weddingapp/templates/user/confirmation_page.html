@@ -1,0 +1,60 @@
+{% extends 'user/layout1.html'%}
+{% block title%}  {% endblock %}
+
+{% block statement %}
+   
+    <div class="bg-dark col-7 p-3">
+        <a href="/user/edit" class="btn-link lead color1 d-block mb-3 px-3">Edit profile</a>
+        <a href="/user/Upload" class="btn-link lead color1 d-block mb-3 px-3">Upload Picture</a>
+        <a href="/registry" class="btn-link lead color1 d-block mb-3 px-3">View gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Change your gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Check Available Hotels</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Send Enquiries</a>
+        <a href="/asoebi" class="btn-link lead color1 d-block mb-3 px-3">Buy Aso Ebi</a>
+        <a href="/ajax_demo" class="btn-link lead color1 d-block mb-3 px-3">Ajax Demo</a>  
+    </div>
+    <div class="d-flex btn-group">
+        <a href="/logout" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Log out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+
+
+
+<div class="mb-3">
+<p class="lead">You are about to pay for the item(s) listed and your transaction ref is {{session.get('reference')}}</p>
+<form action="">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial</th>
+                <th>Uniform</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for orders, details, uniform in deets %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{uniform.uni_name}}</td>
+                <td>{{details.det_itemprice}}</td>
+            </tr>
+            {% endfor%}
+            <tr>
+                <td>Total</td>
+                <td colspan="2">{{total}}</td>
+            </tr>
+        </tbody>
+    </table>
+       
+    <div class="d-flex btn-group">
+        <a href ="" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Pay Now</a>
+    </div>
+</form>
+</div>
+
+
+
+{% endblock%}
+

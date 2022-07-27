@@ -1,0 +1,173 @@
+{% extends 'user/layout1.html'%}
+{% block title%} {{session['user']}} {% endblock %}
+
+{% block statement %}
+    
+    <p class="display-4 color1">Welcome, {{guestdeets.guest_fname}} </p>
+    
+    <p class="lead color2">
+        We would like to hear from you. Please fill the form let us know your thoughts..
+    </p>
+    {% set msg = get_flashed_messages(with_categories=True)%}
+    {% if msg %}
+    {% for i in msg %}
+    {% if i[0] == 'error'%}
+    <p class="alert alert-danger">{{i[1]}}</p>
+    {% else %}
+    <p class="alert alert-success">{{i[1]}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    <div class="bg-dark col-7 p-3">
+        <a href="/user/edit" class="btn-link lead color1 d-block mb-3 px-3">Edit profile</a>
+        <a href="/user/Upload" class="btn-link lead color1 d-block mb-3 px-3">Upload Picture</a>
+        <a href="/registry" class="btn-link lead color1 d-block mb-3 px-3">View gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Change your gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Check Available Hotels</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Send Enquiries</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Buy Aso Ebi</a>
+        <a href="/ajax_demo" class="btn-link lead color1 d-block mb-3 px-3">Ajax Demo</a>  
+    </div>
+    <div class="d-flex btn-group">
+        <a href="/logout" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Log out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+
+<div>
+    <h2>Testing serialized method</h2>
+
+    <div id="forphoto" class="mb-3"></div>
+    <form id="myform" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <input type="file" name="image" class="form-control">
+        </div>
+        <div class="mb-3">
+            <input type="text" name="firstname" class="form-control">
+        </div>
+        <div class="mb-3">
+            <input type="text" name="lastname" class="form-control">
+        </div>
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <div class="d-flex btn-group">
+            <button type="button" class="btn btn-success" id="btnserial">Upload</button>
+        </div>
+    </form>
+</div>
+
+<hr style="background-color:white ;">
+
+<div class="mb-3">
+    <select name="mystate" id="mystate" class="form-control px-3" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+        <option value="">--Please select state--</option>
+        {%for i in state%}
+        <option value="{{i.state_id}}">{{i.state_name}}</option>
+        {%endfor%}
+    </select>
+</div>
+
+<div class="mb-3">
+    <select name="mylga" id="mylga" class="form-control px-3" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+        <option value="">--Please select LGA--</option>
+    </select>
+</div>
+
+<hr style="background-color:white ;">
+<div>
+    <div id="thespan"></div>
+    <form action="" >
+        
+        <div class="mb-3">
+            <input type="email" name="email" id="email" placeholder="choose username" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+        </div>
+        <div class="mb-3">
+            <input type="password" name="pswd" id="pswd" placeholder="choose password" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">
+        </div>
+        
+        <div class="d-flex btn-group">
+            <button class="btn btn-lg d-inline-block" style="background-color: #a8c868;color:#fff;">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock%}
+
+{% block custom_scripts %}
+<script type="text/javascript"> 
+    $(document).ready(function(){
+        $("#btnserial").click(function(){
+            // var data2send = $("#myform").serialize() the serialize method.
+            var form = document.getElementById('myform') // form has to be specified. //$('#myform')[0] how to get your form with JQuery for FormData.
+            var data2send = new FormData(form) // form is then passed into new FormData as an arguement. This is how to instantiate an object in JS.
+            data2send.append('missing','I was not adding in the form.')
+
+            $.ajax({
+                url:"/ajaxtest/final",
+                data:data2send,
+                type:"post",
+                dataType:"json",
+
+                cache:false,
+                processData:false,
+                contentType:false,
+
+                success:function(rsp){
+                    console.log(rsp);
+                    alert(rsp.firstname);
+                    alert(rsp['lastname']);
+                    alert(rsp.appended_data)
+
+                    imglocation = '/static/images/'+ rsp.filename
+
+                    $('#forphoto').html("<img src ="+imglocation+" alt='A picture' width='200'>")
+                },
+
+                error:function(error){
+                    console.log(error)
+                }
+            })
+        })
+
+       
+
+        $('#mystate').change(function(){
+            var state= $(this).val()
+            datasent = {"stateid":state}
+
+            $.ajax({
+                url:"{{url_for('ajaxtests_states')}}",
+                data:datasent,
+                datatype:"text",
+                type:"get",
+                success:function(rsp){
+                    
+                    $('#mylga').html(rsp)
+
+                },
+                error:function(errormsg){
+                    console.log(errormsg)
+                }
+            })
+        })
+            
+
+        $('#email').change(function(){ 
+
+            var data2send = {"username":$(this).val()}
+            $.ajax({
+                url:"{{url_for('ajaxtests_submit')}}",
+                data:data2send,
+                datatype:"text",
+                type:"get",
+                beforeSend:function(){},
+                success:function(rsp){
+                   $('#thespan').html(rsp) 
+                },
+                error:function(msg){
+                    console.log(msg)
+                }
+            })
+        })
+    })
+</script>
+{% endblock%}

@@ -1,0 +1,64 @@
+{% extends 'user/layout1.html'%}
+{% block title%} Login {% endblock %}
+
+{% block statement%}
+    <h1 class="display-3 color1">Mary & John's</h1>
+    <h1 class="display-4 color2 mb-3">Wedding invitation</h1>                
+    <!-- <p class="lead color2">
+        We are delighted to announce that Mary & John are officially tying the knot!
+        Please login to see more details!
+    </p> -->
+    <h1 class="display-4 color1 my-3">Comment</h1>
+    <input type="text" name="" id="thecomment" readonly>
+    <p class="lead" id="thecomment2"></p>
+{% endblock %}
+
+
+{% block form %}
+        <div>
+            <label for="forum" class="lead ">Share your thoughts</label>
+        </div>
+        <div class="mb-3">
+            <textarea name="comment" id="comment" cols="30" rows="10" class="form-control" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;"></textarea>
+        </div>
+        <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+        <button type ="button" id="btn" class="btn btn-lg color3 d-inline-block" style="border:2px solid #a8c868;">Send Suggestion</button>
+
+{% endblock %}
+
+{% block customer_scripts %}
+    <script type="text/javascript" >
+        $(document).ready(function(){
+            $('#btn').click(function(){
+                var content = $('#comment').val()
+                var csrf = $('#csrf_token').val()
+                data2send = {"suggest":content, "csrf_token":csrf}//object
+                // data2send = "suggest="+content //query string
+                //make ajax call to the route and send this data over
+
+                $.ajax({
+                    url:"/send_forum",
+                    data:data2send,
+                    type:"get",
+                    dataType:"text", //text is the default and however, you can change it to json if the file is a json file. The good thing about json is that it can be read both on Javascript an python. 
+                    beforeSend:function(){
+                        if($("#comment").val()==''){
+                            alert("Please Ma/Sir input your message before you send.")
+                            return false
+                        }
+                    },
+                    success:function(server_response){
+                        $('#btn').html("Send Another suggestion")
+                        $('#comment').val("")
+                        $('#thecomment').val(content)
+                        $('#thecomment2').html(content) // comes to success when the query returns from the server succeessfully. 
+                    },
+                    error:function(errormsg){
+                        $('#btn').html("Send Suggestion")
+                        console.log(errormsg)//comes when the query was unsucccessful. 
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}

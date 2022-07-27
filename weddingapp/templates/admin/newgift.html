@@ -1,0 +1,15 @@
+{% extends 'admin/admin_panel.html' %}
+{% block contents %}
+    <h2>ADD GIFTS</h2>
+    <div>
+        <form action="" method="post">
+            <div>
+                <input type="text" name="gift" id="gift" placeholder="Enter Gift name" class="form-control">
+            </div>
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}" id="csrf_token">
+            <div>
+                <button class="btn btn-success"> Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'user/layout1.html'%}
+{% block title%} {{session['user']}} {% endblock %}
+
+{% block statement %}
+   
+    <div class="bg-dark col-7 p-3">
+        <a href="/user/edit" class="btn-link lead color1 d-block mb-3 px-3">Edit profile</a>
+        <a href="/user/Upload" class="btn-link lead color1 d-block mb-3 px-3">Upload Picture</a>
+        <a href="/registry" class="btn-link lead color1 d-block mb-3 px-3">View gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Change your gift</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Check Available Hotels</a>
+        <a href="/#" class="btn-link lead color1 d-block mb-3 px-3">Send Enquiries</a>
+        <a href="/uniform" class="btn-link lead color1 d-block mb-3 px-3">Buy Aso Ebi</a>
+        <a href="/ajax_demo" class="btn-link lead color1 d-block mb-3 px-3">Ajax Demo</a>  
+    </div>
+    <div class="d-flex btn-group">
+        <a href="/logout" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Log out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+
+
+
+<div class="mb-3">
+    <h2>View Hotel Suggessions</h2>
+    {{rsp_json}}
+    <div class="row">
+        {% if rsp_json.get('status') == 1 %}
+        {% for i in rsp_json["message"]%}
+        <div class="col-3">
+            <img src="{{i['image']}}" alt="" class="img-fluid"> <!--Because we are consuming another api, we would have to be online.  -->
+            <h5>{{i['contact']}}</h5> 
+        </div>
+
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock%}
+

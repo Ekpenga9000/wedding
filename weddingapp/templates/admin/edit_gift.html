@@ -1,0 +1,18 @@
+{% extends 'admin/admin_panel.html' %}
+{% block contents %}
+    <h2>EDIT GIFTS</h2>
+    <div>
+        <form action="{{url_for('update_gift')}}" method="post">
+            <div>
+                <input type="text" name="gift" id="gift"  value = "{{myid.gift_name}}" class="form-control">
+            </div>
+            <div>
+                <input type="hidden" name="id" id="giftid" value = {{myid.gift_id}}>
+            </div>
+            <div>
+                <button class="btn btn-success">Edit</button>
+            </div>
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+        </form>
+    </div>
+{% endblock %}
